@@ -1,0 +1,63 @@
+### 1. Criar uma nova conta de Cliente (Registo)
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "name": "João Cliente",
+  "email": "joao@email.com",
+  "phone": "51988887777",
+  "password": "minhasenha123"
+}
+
+###
+
+### 2. Fazer Login com o Cliente criado
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{
+  "email": "joao@email.com",
+  "password": "minhasenha123"
+}
+
+###
+
+### 3. Testar erro de Login (Senha errada)
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{
+  "email": "joao@email.com",
+  "password": "senha-errada"
+}
+
+###
+
+### 4. Fazer um Agendamento (Sucesso)
+# IDs usados abaixo:
+# clientId: 3 (O "João Cliente" que acabamos de registrar)
+# serviceId: 1 (Corte de Cabelo)
+# staffId: 1 (Gabriel)
+POST http://localhost:8080/api/bookings
+Content-Type: application/json
+
+{
+  "clientId": 3,
+  "serviceId": 1,
+  "staffId": 1,
+  "bookingDateTime": "2026-10-15T14:00:00"
+}
+
+###
+
+### 5. Testar Bloqueio de Horário (Choque de Agendamento)
+# Tentar agendar com o Gabriel no mesmo horário do agendamento anterior
+POST http://localhost:8080/api/bookings
+Content-Type: application/json
+
+{
+  "clientId": 3,
+  "serviceId": 2,
+  "staffId": 1,
+  "bookingDateTime": "2026-10-15T14:15:00"
+}
